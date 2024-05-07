@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+
+  library:
+    container_name: library_service
+    build: .
+    ports:
+      - "80:80"
+
+  plant:
+    container_name: plant_service
+    build: ./plantService
+    ports:
+      - "5000:5000"
+    command: python ./plantService/app.py
+    volumes:
+      - .:/code
+    networks:
+      - default

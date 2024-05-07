@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.library_service.com/library"
+    xmlns:tns="http://www.library_service.com/library"
+    xmlns:book="http://www.library_service.com/book"
+    elementFormDefault="qualified">
+    
+    <xs:import namespace="http://www.library_service.com/book" schemaLocation="book.xsd"/>
+    
+    <xs:complexType name="libraryInfo">
+	    <xs:sequence>
+	      <xs:element name="id" type="xs:long"/>
+	      <xs:element name="name" type="xs:string"/>
+	      <xs:element name="address" type="xs:string"/>
+	      <xs:element name="opened" type="xs:int"/>
+	      <xs:element name="bookInfo" type="book:bookInfo" minOccurs="0" maxOccurs = "unbounded"/>
+	    </xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="getAllLibrariesRequest">
+		<xs:complexType/>
+	</xs:element>
+	
+	<xs:element name="getAllLibrariesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryInfo" type="tns:libraryInfo" minOccurs="0" maxOccurs = "unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="getLibraryByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="getLibraryByIdResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryInfo" type="tns:libraryInfo"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="addLibraryRequest">
+		<xs:complexType>
+			<xs:sequence>
+			    <xs:element name="name" type="xs:string"/>
+			    <xs:element name="address" type="xs:string"/>
+			    <xs:element name="opened" type="xs:int"/>
+	      		<xs:element name="bookId" type="book:bookId" minOccurs="0" maxOccurs = "unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="addLibraryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryInfo" type="tns:libraryInfo" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="updateLibraryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"/>
+			    <xs:element name="name" type="xs:string"/>
+			    <xs:element name="address" type="xs:string"/>
+			    <xs:element name="opened" type="xs:int"/>
+	      		<xs:element name="bookId" type="book:bookId" minOccurs="0" maxOccurs = "unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="updateLibraryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryInfo" type="tns:libraryInfo" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="updateLibraryBooksRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"/>
+	      		<xs:element name="bookId" type="book:bookId" minOccurs="0" maxOccurs = "unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="updateLibraryBooksResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryInfo" type="tns:libraryInfo" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="deleteLibraryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="deleteLibraryResponse">
+		<xs:complexType/>
+	</xs:element>
+	
+	<xs:element name="removeBookFromLibraryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libraryId" type="xs:long"/>
+				<xs:element name="bookId" type="book:bookId"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="removeBookFromLibraryResponse">
+		<xs:complexType/>
+	</xs:element>
+    
+    
+</xs:schema>
