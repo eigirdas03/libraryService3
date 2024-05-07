@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://www.library_service.com/plant" xmlns:sch1="http://www.library_service.com/book" xmlns:sch2="http://www.library_service.com/library" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.library_service.com/library" targetNamespace="http://www.library_service.com/library">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://www.library_service.com/plant" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.library_service.com/plant"><xs:complexType name="plantInfo"><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="name" type="xs:string"/><xs:element name="type" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="plantInfoWithoutId"><xs:sequence><xs:element name="name" type="xs:string"/><xs:element name="type" type="xs:string"/></xs:sequence></xs:complexType><xs:complexType name="plantInfoWithOptionalId"><xs:sequence><xs:element minOccurs="0" name="id" type="xs:long"/><xs:element name="name" type="xs:string"/><xs:element name="type" type="xs:string"/></xs:sequence></xs:complexType></xs:schema>
+    <xs:schema xmlns:plant="http://www.library_service.com/plant" xmlns:tns="http://www.library_service.com/book" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.library_service.com/book"><xs:import namespace="http://www.library_service.com/plant"/><xs:complexType name="bookInfo"><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="author" type="xs:string"/><xs:element name="title" type="xs:string"/><xs:element name="published" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="plantInfo" type="plant:plantInfo"/></xs:sequence></xs:complexType><xs:complexType name="bookInfoPlantIdOptional"><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="author" type="xs:string"/><xs:element name="title" type="xs:string"/><xs:element name="published" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="plantInfo" type="plant:plantInfoWithOptionalId"/></xs:sequence></xs:complexType><xs:complexType name="bookId"><xs:sequence><xs:element name="id" type="xs:long"/></xs:sequence></xs:complexType><xs:element name="getAllBooksRequest"><xs:complexType/></xs:element><xs:element name="getAllBooksResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="bookInfo" type="tns:bookInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="getBookByIdRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:element name="getBookByIdResponse"><xs:complexType><xs:sequence><xs:element name="bookInfo" type="tns:bookInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="addBookRequest"><xs:complexType><xs:sequence><xs:element name="author" type="xs:string"/><xs:element name="title" type="xs:string"/><xs:element name="published" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="plantInfo" type="plant:plantInfoWithoutId"/></xs:sequence></xs:complexType></xs:element><xs:element name="addBookResponse"><xs:complexType><xs:sequence><xs:element name="bookInfo" type="tns:bookInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateBookRequest"><xs:complexType><xs:sequence><xs:element name="bookInfo" type="tns:bookInfoPlantIdOptional"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateBookResponse"><xs:complexType><xs:sequence><xs:element name="bookInfo" type="tns:bookInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="deleteBookRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:element name="deleteBookResponse"><xs:complexType/></xs:element></xs:schema>
+    <xs:schema xmlns:book="http://www.library_service.com/book" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.library_service.com/library"><xs:import namespace="http://www.library_service.com/book"/><xs:complexType name="libraryInfo"><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="name" type="xs:string"/><xs:element name="address" type="xs:string"/><xs:element name="opened" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="bookInfo" type="book:bookInfo"/></xs:sequence></xs:complexType><xs:element name="getAllLibrariesRequest"><xs:complexType/></xs:element><xs:element name="getAllLibrariesResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="libraryInfo" type="tns:libraryInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="getLibraryByIdRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:int"/></xs:sequence></xs:complexType></xs:element><xs:element name="getLibraryByIdResponse"><xs:complexType><xs:sequence><xs:element name="libraryInfo" type="tns:libraryInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="addLibraryRequest"><xs:complexType><xs:sequence><xs:element name="name" type="xs:string"/><xs:element name="address" type="xs:string"/><xs:element name="opened" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="bookId" type="book:bookId"/></xs:sequence></xs:complexType></xs:element><xs:element name="addLibraryResponse"><xs:complexType><xs:sequence><xs:element name="libraryInfo" type="tns:libraryInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateLibraryRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:long"/><xs:element name="name" type="xs:string"/><xs:element name="address" type="xs:string"/><xs:element name="opened" type="xs:int"/><xs:element maxOccurs="unbounded" minOccurs="0" name="bookId" type="book:bookId"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateLibraryResponse"><xs:complexType><xs:sequence><xs:element name="libraryInfo" type="tns:libraryInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateLibraryBooksRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:long"/><xs:element maxOccurs="unbounded" minOccurs="0" name="bookId" type="book:bookId"/></xs:sequence></xs:complexType></xs:element><xs:element name="updateLibraryBooksResponse"><xs:complexType><xs:sequence><xs:element name="libraryInfo" type="tns:libraryInfo"/></xs:sequence></xs:complexType></xs:element><xs:element name="deleteLibraryRequest"><xs:complexType><xs:sequence><xs:element name="id" type="xs:long"/></xs:sequence></xs:complexType></xs:element><xs:element name="deleteLibraryResponse"><xs:complexType/></xs:element><xs:element name="removeBookFromLibraryRequest"><xs:complexType><xs:sequence><xs:element name="libraryId" type="xs:long"/><xs:element name="bookId" type="book:bookId"/></xs:sequence></xs:complexType></xs:element><xs:element name="removeBookFromLibraryResponse"><xs:complexType/></xs:element></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getLibraryByIdResponse">
+    <wsdl:part element="tns:getLibraryByIdResponse" name="getLibraryByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteLibraryResponse">
+    <wsdl:part element="tns:deleteLibraryResponse" name="deleteLibraryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeBookFromLibraryRequest">
+    <wsdl:part element="tns:removeBookFromLibraryRequest" name="removeBookFromLibraryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllBooksRequest">
+    <wsdl:part element="sch1:getAllBooksRequest" name="getAllBooksRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteLibraryRequest">
+    <wsdl:part element="tns:deleteLibraryRequest" name="deleteLibraryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addBookResponse">
+    <wsdl:part element="sch1:addBookResponse" name="addBookResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateLibraryResponse">
+    <wsdl:part element="tns:updateLibraryResponse" name="updateLibraryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllLibrariesResponse">
+    <wsdl:part element="tns:getAllLibrariesResponse" name="getAllLibrariesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addLibraryRequest">
+    <wsdl:part element="tns:addLibraryRequest" name="addLibraryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateLibraryRequest">
+    <wsdl:part element="tns:updateLibraryRequest" name="updateLibraryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBookByIdResponse">
+    <wsdl:part element="sch1:getBookByIdResponse" name="getBookByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteBookResponse">
+    <wsdl:part element="sch1:deleteBookResponse" name="deleteBookResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllLibrariesRequest">
+    <wsdl:part element="tns:getAllLibrariesRequest" name="getAllLibrariesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateBookResponse">
+    <wsdl:part element="sch1:updateBookResponse" name="updateBookResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBookByIdRequest">
+    <wsdl:part element="sch1:getBookByIdRequest" name="getBookByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteBookRequest">
+    <wsdl:part element="sch1:deleteBookRequest" name="deleteBookRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllBooksResponse">
+    <wsdl:part element="sch1:getAllBooksResponse" name="getAllBooksResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeBookFromLibraryResponse">
+    <wsdl:part element="tns:removeBookFromLibraryResponse" name="removeBookFromLibraryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addBookRequest">
+    <wsdl:part element="sch1:addBookRequest" name="addBookRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateLibraryBooksResponse">
+    <wsdl:part element="tns:updateLibraryBooksResponse" name="updateLibraryBooksResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateBookRequest">
+    <wsdl:part element="sch1:updateBookRequest" name="updateBookRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addLibraryResponse">
+    <wsdl:part element="tns:addLibraryResponse" name="addLibraryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLibraryByIdRequest">
+    <wsdl:part element="tns:getLibraryByIdRequest" name="getLibraryByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateLibraryBooksRequest">
+    <wsdl:part element="tns:updateLibraryBooksRequest" name="updateLibraryBooksRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="LibraryServicePort">
+    <wsdl:operation name="getLibraryById">
+      <wsdl:input message="tns:getLibraryByIdRequest" name="getLibraryByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getLibraryByIdResponse" name="getLibraryByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteLibrary">
+      <wsdl:input message="tns:deleteLibraryRequest" name="deleteLibraryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteLibraryResponse" name="deleteLibraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeBookFromLibrary">
+      <wsdl:input message="tns:removeBookFromLibraryRequest" name="removeBookFromLibraryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:removeBookFromLibraryResponse" name="removeBookFromLibraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllBooks">
+      <wsdl:input message="tns:getAllBooksRequest" name="getAllBooksRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllBooksResponse" name="getAllBooksResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addBook">
+      <wsdl:input message="tns:addBookRequest" name="addBookRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:addBookResponse" name="addBookResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLibrary">
+      <wsdl:input message="tns:updateLibraryRequest" name="updateLibraryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateLibraryResponse" name="updateLibraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllLibraries">
+      <wsdl:input message="tns:getAllLibrariesRequest" name="getAllLibrariesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllLibrariesResponse" name="getAllLibrariesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addLibrary">
+      <wsdl:input message="tns:addLibraryRequest" name="addLibraryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:addLibraryResponse" name="addLibraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookById">
+      <wsdl:input message="tns:getBookByIdRequest" name="getBookByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getBookByIdResponse" name="getBookByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBook">
+      <wsdl:input message="tns:deleteBookRequest" name="deleteBookRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteBookResponse" name="deleteBookResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBook">
+      <wsdl:input message="tns:updateBookRequest" name="updateBookRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateBookResponse" name="updateBookResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLibraryBooks">
+      <wsdl:input message="tns:updateLibraryBooksRequest" name="updateLibraryBooksRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateLibraryBooksResponse" name="updateLibraryBooksResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LibraryServicePortSoap11" type="tns:LibraryServicePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getLibraryById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getLibraryByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLibraryByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteLibrary">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteLibraryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteLibraryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeBookFromLibrary">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="removeBookFromLibraryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeBookFromLibraryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllBooks">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getAllBooksRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllBooksResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="addBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLibrary">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateLibraryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateLibraryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllLibraries">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getAllLibrariesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllLibrariesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addLibrary">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="addLibraryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addLibraryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getBookByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBookByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateLibraryBooks">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateLibraryBooksRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateLibraryBooksResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LibraryServicePortService">
+    <wsdl:port binding="tns:LibraryServicePortSoap11" name="LibraryServicePortSoap11">
+      <soap:address location="http://localhost:80/library_service"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
