@@ -6,7 +6,7 @@
 1. `git clone https://github.com/eigirdas03/libraryService3`
 2. `cd libraryService3`
 3. `docker-compose up --build` or `docker-compose up --build -d` (detached mode)
-4. WSDL location: http://localhost:80/library_service/library_service.wsdl
+4. WSDL can be found in files and http://localhost:80/library_service/library_service.wsdl
    
 
 ## Resources
